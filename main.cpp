@@ -25,8 +25,7 @@ while(1){
     cout<<"======================"<<endl;
     cout<<"[0] Ingresar"<<endl;
     cout<<"[1] Registrarse"<<endl;
-    cout<<"[2] Ver publicaciones"<<endl;
-    cout<<"[3] Salir"<<endl;
+    cout<<"[2] Salir"<<endl;
     cout<<"Tu selecci"<<(char)162<<"n: ";
     cin>>seleccion;
 
@@ -35,7 +34,7 @@ while(1){
     case 0:
         socialTube.ingresar();
         break;
-    case 3:
+    case 2:
         return 0;
     default:
         break;

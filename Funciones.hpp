@@ -9,13 +9,13 @@ using std::ifstream;
 
 
 void cargarDatos(red* redSocial){
+
     int seleccion;
     string user, correo, pass;
     user = correo = pass = "";
     int posComa, posPuntoComa;
     string linea;
     vector<string> text;
-    vector<usuario> vectorUsuarios;
     ifstream archivo;
     archivo.open("cuentas.txt");
     while(!archivo.eof()){
@@ -23,6 +23,7 @@ void cargarDatos(red* redSocial){
         text.push_back(linea);
     }
     archivo.close();
+    
     int j = 0;
     for(int i = 0; i < text.size(); i++){
         for(auto x: text[i]){
@@ -37,16 +38,17 @@ void cargarDatos(red* redSocial){
             j++;
         }
         j = 0;
-        usuario nuevoUsuario(user, pass, correo);
-        redSocial->anadirUsuario(nuevoUsuario);
+        usuario* usuarioTemporal;
+        usuarioTemporal = new usuario(user, pass, correo);
+        redSocial->anadirUsuario(usuarioTemporal);
         user = correo = pass = "";
-    }
+    } 
 }
 
 void imprimirDatos(red socialTube){
     for(int i = 0; i < socialTube.listaUsuarios.cantidad; i++){
-        cout<<"Usuario: "<<socialTube.listaUsuarios.getValue(i).apodo;
-        cout<<" Email: "<<socialTube.listaUsuarios.getValue(i).correo;
-        cout<<" Pass: "<<socialTube.listaUsuarios.getValue(i).contrasena<<endl;
+        cout<<"Usuario: "<<socialTube.listaUsuarios.getValue(i)->apodo;
+        cout<<" Email: "<<socialTube.listaUsuarios.getValue(i)->correo;
+        cout<<" Pass: "<<socialTube.listaUsuarios.getValue(i)->contrasena<<endl;
     }
 }

@@ -5,10 +5,10 @@ template<class T>
 class Nodo
 {
 public:
-    T data;
+    T* data;
     Nodo* next;
-    Nodo(T valor){
-        data = valor;
+    Nodo(T* valor){//Valor apunta al usuario
+        data = valor;//hago que data también apunte al usuario
         next = nullptr;
     }
     Nodo(){
