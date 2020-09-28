@@ -1,4 +1,5 @@
 #include <iostream>
+#include "usuario.hpp"
 #include "nodo.hpp"
 using namespace std;
 template<class T>
@@ -35,14 +36,14 @@ public:
         else if (position >= cantidad || position < 0) { std::cerr << "Error: Index out of range"; }
         else {
             int index = 0;
-            Nodo* iterator = new Nodo();
+            Nodo<usuario>* iterator = new Nodo<usuario>();
             iterator = head;//Apunta al dato que esté en la posición 1
             while(iterator != nullptr){
-            if (position == index && operation == 4) {
-                return iterator->valor;
+                if (position == index) {
+                    return iterator->data;
+                }
+                iterator = iterator->next; index++;
             }
-            iterator = iterator->s; index++;
-        }
+        }   
     }
-
 };

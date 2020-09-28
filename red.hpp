@@ -31,9 +31,9 @@ class red{
         cout<<endl<<"Contrase"<<(char)164<<"a: ";
         std::cin>>contrasenaTemporal;
 
-        for(int i = 0; i < ; i++){
-            if(usuarioTemporal == usuarios[i].apodo && contrasenaTemporal == usuarios[i].contrasena){
-                usuarioActual = usuarios[i];
+        for(int i = 0; i < listaUsuarios.cantidad; i++){
+            if(usuarioTemporal == listaUsuarios.getValue(i).apodo && contrasenaTemporal == listaUsuarios.getValue(i).contrasena){
+                usuarioActual = listaUsuarios.getValue(i);
             }
         }
         if(usuarioActual.apodo == "null"){
@@ -46,6 +46,12 @@ class red{
 
     void sesionPrincipal(){
         system("cls");
-
+        cout<<"Social Tube"<<endl;
+        cout<<"==========="<<endl;
+        cout<<"[0] Ver perfil de contactos"<<endl;
+        cout<<"[1] Ver publicaciones"<<endl;
+        cout<<"[2] Ver tu perfil"<<endl;
+        cout<<"[3] Salir"<<endl;
+        cout<<"Seleccion: ";
     }
 };

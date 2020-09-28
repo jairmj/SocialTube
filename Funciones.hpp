@@ -1,14 +1,14 @@
-#include "usuario.hpp"
+#include "red.hpp"
 
-#include <string>;
-#include <vector>;
-#include <fstream>;
+#include <string>
+#include <vector>
+#include <fstream>
 using std::string;
 using std::vector;
 using std::ifstream;
 
 
-void cargarDatos(){
+void cargarDatos(red* redSocial){
     int seleccion;
     string user, correo, pass;
     user = correo = pass = "";
@@ -37,8 +37,8 @@ void cargarDatos(){
             j++;
         }
         j = 0;
-        usuario nuevoUsuario(user, correo, pass);
-        vectorUsuarios.push_back(nuevoUsuario);
+        usuario nuevoUsuario(user, pass, correo);
+        redSocial->anadirUsuario(nuevoUsuario);
         user = correo = pass = "";
     }
 }

@@ -2,6 +2,7 @@
 #include "usuario.hpp"
 #include "red.hpp"
 #include "tweet.hpp"
+#include "Funciones.hpp"
 #include <fstream>
 
 using std::cout;
@@ -16,8 +17,14 @@ int main(){
         cout<<"Usuario: "<<x.apodo<<" email: "<<x.correo<<" contra: "<<x.contrasena<<endl;
     } */
     red socialTube;
+    cargarDatos(&socialTube);
+    for(int i = 0; i < socialTube.listaUsuarios.cantidad; i++){
+        cout<<"Usuario: "<<socialTube.listaUsuarios.getValue(i).apodo;
+        cout<<" Email: "<<socialTube.listaUsuarios.getValue(i).correo;
+        cout<<" Pass: "<<socialTube.listaUsuarios.getValue(i).contrasena<<endl;
+    }
     int seleccion;
-    while(1){
+    /* while(1){
         cout<<"Bienvenido a SocialTube!!"<<endl;
         cout<<"======================"<<endl;
         cout<<"[0] Ingresar"<<endl;
@@ -36,8 +43,8 @@ int main(){
         default:
             break;
         }
-    }
-
+    } */
+    cin>>seleccion;
 
     return 0;
 }

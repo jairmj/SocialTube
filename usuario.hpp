@@ -16,5 +16,7 @@ class usuario{
         this->contrasena = contrasena;
         this->correo = correo;
     }
-    usuario(){}
+    usuario(){
+        apodo = "null";
+    }
 };

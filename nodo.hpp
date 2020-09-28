@@ -11,7 +11,6 @@ public:
         next = nullptr;
     }
     Nodo(){
-        data = NULL;
         next = nullptr;
     }
     ~Nodo();
