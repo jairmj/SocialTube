@@ -2,13 +2,14 @@
 #include <string>
 #include <iostream>
 #include "tweet.hpp"
+#include "ListaEnlazada.hpp"
 using std::string;
 using std::vector;
 
 class usuario{
     public:
     string apodo, contrasena, correo;
-    vector<tweet> tweets;
+    ListaEnlazada<tweet> publicaciones;
 
 
     usuario(string apodo, string contrasena, string correo){

@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include "usuario.hpp"
+#include "tweet.hpp"
 #include "nodo.hpp"
 using namespace std;
 template<class T>
@@ -36,7 +38,7 @@ public:
         else if (position >= cantidad || position < 0) { std::cerr << "Error: Index out of range"; }
         else {
             int index = 0;
-            Nodo<usuario>* iterator = new Nodo<usuario>();
+            Nodo<T>* iterator = new Nodo<T>();
             iterator = head;//Apunta al dato que esté en la posición 1
             while(iterator != nullptr){
                 if (position == index) {

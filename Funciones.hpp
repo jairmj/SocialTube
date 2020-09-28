@@ -42,3 +42,11 @@ void cargarDatos(red* redSocial){
         user = correo = pass = "";
     }
 }
+
+void imprimirDatos(red socialTube){
+    for(int i = 0; i < socialTube.listaUsuarios.cantidad; i++){
+        cout<<"Usuario: "<<socialTube.listaUsuarios.getValue(i).apodo;
+        cout<<" Email: "<<socialTube.listaUsuarios.getValue(i).correo;
+        cout<<" Pass: "<<socialTube.listaUsuarios.getValue(i).contrasena<<endl;
+    }
+}
