@@ -18,9 +18,10 @@ int main(){
     } */
     red socialTube;
     cargarDatos(&socialTube);
-
+    cargarPublicaciones(&socialTube.listaUsuarios);
     int seleccion;
 while(1){
+    system("cls");
     cout<<"Bienvenido a SocialTube!!"<<endl;
     cout<<"======================"<<endl;
     cout<<"[0] Ingresar"<<endl;

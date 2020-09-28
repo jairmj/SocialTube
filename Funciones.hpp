@@ -1,5 +1,7 @@
+#pragma once
 #include "red.hpp"
-
+#include "tweet.hpp"
+#include "ListaEnlazada.hpp"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -51,4 +53,13 @@ void imprimirDatos(red socialTube){
         cout<<" Email: "<<socialTube.listaUsuarios.getValue(i)->correo;
         cout<<" Pass: "<<socialTube.listaUsuarios.getValue(i)->contrasena<<endl;
     }
+}
+
+void cargarPublicaciones(ListaEnlazada<usuario>* listaUsuarios){
+    listaUsuarios->getValue(0)->publicaciones.InsertarNodoFin(new tweet("Me encanta esta red social"));
+    listaUsuarios->getValue(1)->publicaciones.InsertarNodoFin(new tweet("Ayer comi mi plato favorito"));
+    listaUsuarios->getValue(2)->publicaciones.InsertarNodoFin(new tweet("Voy a mudarme dentro de poco"));
+    listaUsuarios->getValue(3)->publicaciones.InsertarNodoFin(new tweet("Estoy muy triste"));
+    listaUsuarios->getValue(4)->publicaciones.InsertarNodoFin(new tweet("Me van a subir el sueldo"));
+    listaUsuarios->getValue(5)->publicaciones.InsertarNodoFin(new tweet("necesito ir de compras"));
 }

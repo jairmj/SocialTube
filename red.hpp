@@ -15,7 +15,7 @@ using std::cout;
 
 class red{
     public:
-    usuario usuarioActual;
+    usuario* usuarioActual;
     ListaEnlazada<usuario> listaUsuarios;
     red(){}
     void anadirUsuario(usuario* nuevoUsuario){//nuevoUsuario apunta al usuario que quiero guardar
@@ -34,13 +34,13 @@ class red{
 
         for(int i = 0; i < listaUsuarios.cantidad; i++){
             if(usuarioTemporal == listaUsuarios.getValue(i)->apodo && contrasenaTemporal == listaUsuarios.getValue(i)->contrasena){
-                usuarioActual = *listaUsuarios.getValue(i);
+                usuarioActual = listaUsuarios.getValue(i);
             }
         }
-        if(usuarioActual.apodo == "null"){
+        if(usuarioActual->apodo == "null"){
             cout<<endl<<"Usuario o contrasena inocorrecto"<<endl;
         }else{
-            cout<<endl<<"Sesion iniciada, bienvenido "<<usuarioActual.apodo;
+            cout<<endl<<"Sesion iniciada, bienvenido "<<usuarioActual->apodo;
             sesionPrincipal();//El usuario entra a la red social
         }
     }
@@ -54,9 +54,9 @@ class red{
             cout<<"==========="<<endl;
             cout<<"[0] Hacer una publicacion"<<endl;
             cout<<"[1] Ver perfil de contactos"<<endl;
-            cout<<"[2] Ver publicaciones"<<endl;
-            cout<<"[3] Ver tu perfil"<<endl;
-            cout<<"[4] Salir"<<endl;
+            //cout<<"[2] Ver publicaciones"<<endl;
+            cout<<"[2] Ver tu perfil"<<endl;
+            cout<<"[3] Cerrar sesion"<<endl;
             cout<<"Seleccion: ";
             cin>>seleccion;
             switch (seleccion)
@@ -67,10 +67,10 @@ class red{
             case 1:
                 verPerfilContacto();
                 break;
-            case 3:
-                verMisPublicaciones();
+            case 2:
+                verPublicaciones(posicion(usuarioActual->apodo));
                 break;
-            case 4:
+            case 3:
                 statusOn = false;
                 break;
             default:
@@ -78,7 +78,11 @@ class red{
             }
         }
     }
-
+    int posicion(string apodo){
+        for(int i = 0; i < listaUsuarios.cantidad; i++){
+            if(apodo == listaUsuarios.getValue(i)->apodo) return i;
+        }
+    }
     void hacerPublicacion(){
         string textoPublicacion;
         system("cls");
@@ -89,7 +93,7 @@ class red{
         cin>>textoPublicacion;
         tweet*  nuevaPublicacion;
         nuevaPublicacion = new tweet(textoPublicacion);
-        usuarioActual.publicaciones.InsertarNodoFin(nuevaPublicacion);
+        usuarioActual->publicaciones.InsertarNodoFin(nuevaPublicacion);
         cout<<endl<<"Publicaci"<<(char)162<<"n realizada!";
         cout<<endl<<endl<<"Pulse cualquier tecla para regresar";
         getch();
@@ -104,65 +108,30 @@ class red{
             cout<<"["<<i<<"] "<<listaUsuarios.getValue(i)->apodo<<endl;
         cout<<"Seleccion: ";
         cin>>seleccion;
-        //usuario* usuarioTarget = &listaUsuarios.getValue(seleccion);
-        //verPublicaciones(usuarioTarget);
+        verPublicaciones(seleccion);
     }
-    void verMisPublicaciones(){
+
+
+    void verPublicaciones(int a){
+        usuario* usuariFunc = listaUsuarios.getValue(a); 
         int selection;
         system("cls");
-        cout<<"Publicacion de: "<<usuarioActual.apodo<<endl;
+        cout<<"Publicaciones de "<<listaUsuarios.getValue(a)->apodo<<endl;
         cout<<"========================="<<endl;
-        int cantidadTweets = usuarioActual.publicaciones.cantidad;
-        if(cantidadTweets != 0){
-            for(int i = 0; i < cantidadTweets; i++){
-                cout<<"["<<i<<"] "<<usuarioActual.publicaciones.getValue(i)->contenido<<endl;
-            }
-            cout<<endl<<endl<<"["<<usuarioActual.publicaciones.cantidad<<"] Salir"<<endl;
-            cout<<"Seleccion: ";
-            cin>>selection;
-            int op;
-            system("cls");
-            cout<<"Publicacion de: "<<usuarioActual.apodo<<endl;
-            cout<<"================="<<endl<<(char)219<<usuarioActual.publicaciones.getValue(selection)->contenido;
-            cout<<endl<<endl<<"Likes: "<<usuarioActual.publicaciones.getValue(selection)->likes;
-            cout<<" | RTs: "<<usuarioActual.publicaciones.getValue(selection)->RTs<<endl<<endl;
-            cout<<"[0] Dar like"<<endl;
-            cout<<"[1] Dar RT"<<endl;
-            cout<<"[2] Salir"<<endl;
-            cout<<"Seleccion: ";cin>>op;
-            switch (op)
-            {
-            case 0:
-                usuarioActual.publicaciones.getValue(selection)->agregarLike();
-                break;
-            case 1:
-                usuarioActual.publicaciones.getValue(selection)->agregarRT();
-                break;
-            default:
-                break;
-            }
-            
-        }   
-    }
-    /* void verPublicaciones(int a){
-        int selection;
-        system("cls");
-        cout<<"Publicaciones de "<<us->apodo<<endl;
-        cout<<"========================="<<endl;
-        int cantidadTweets = us->publicaciones->cantidad;
+        int cantidadTweets = listaUsuarios.getValue(a)->publicaciones.cantidad;
         if(cantidadTweets != 0){
             for(int i = 0; i < cantidadTweets; i++)
-                cout<<"["<<i<<"] "<< us->publicaciones->getValue(i)->contenido <<endl<<endl;
-            cout<<endl<<endl<<"["<<us->publicaciones->cantidad<<"] Salir"<<endl;
+                cout<<"["<<i<<"] "<< usuariFunc->publicaciones.getValue(i)->contenido <<endl<<endl;
+            cout<<endl<<endl<<"["<< cantidadTweets <<"] Salir"<<endl;
             cout<<"Seleccion: ";
             cin>>selection;
             if(selection < cantidadTweets && selection >= 0){
                 int op;
                 system("cls");
-                cout<<"Publicacion de: "<<us->apodo<<endl;
-                cout<<"================="<<endl<<(char)219<<us->publicaciones->getValue(selection)->contenido;
-                cout<<endl<<endl<<"Likes: "<<us->publicaciones->getValue(selection)->likes;
-                cout<<" | RTs: "<<us->publicaciones->getValue(selection)->RTs<<endl;
+                cout<<"Publicacion de: "<<usuariFunc->apodo<<endl;
+                cout<<"================="<<endl<<(char)219<<usuariFunc->publicaciones.getValue(selection)->contenido;
+                cout<<endl<<endl<<"Likes: "<<usuariFunc->publicaciones.getValue(selection)->likes;
+                cout<<" | RTs: "<<usuariFunc->publicaciones.getValue(selection)->RTs<<endl;
                 cout<<"[0] Dar like"<<endl;
                 cout<<"[1] Dar RT"<<endl;
                 cout<<"[2] Salir"<<endl;
@@ -170,11 +139,12 @@ class red{
                 switch (op)
                 {
                 case 0:
-                    us->publicaciones->getValue(selection)->agregarLike();
+                    usuariFunc->publicaciones.getValue(selection)->agregarLike();
 
                     break;
                 case 1:
-                    us->publicaciones->getValue(selection)->agregarRT();
+                    usuariFunc->publicaciones.getValue(selection)->agregarRT();
+                    usuarioActual->publicaciones.InsertarNodoFin(usuariFunc->publicaciones.getValue(selection));
                     break;
                 case 2:
                     break;
@@ -188,7 +158,7 @@ class red{
             getch();
         }
 
-    } */
+    } 
 
     void registro(){
         string user, contra, correo, rcontra;
@@ -201,9 +171,9 @@ class red{
             cin >> user;
             cout << "Correo: ";
             cin >> correo;
-            cout << "Contraseña: ";
+            cout << "Contrase"<<(char)164<<"a: ";
             cin >> contra;
-            cout << "Repetir Contraseña: ";
+            cout << "Repetir Contrase"<<(char)164<<"a: ";
             cin >> rcontra;
 
             if (contra == rcontra) {
@@ -211,9 +181,11 @@ class red{
 
                 listaUsuarios.InsertarNodoFin(un); //inserta el objeto usuario en la lista de cuentas
                 archivo << "\n" << user << "," << correo << ";" << contra;
-                cout<<endl<<"Cuenta registrado correctamente, bienvenido a SocialTube"<<usuarioActual.apodo;
                 archivo.close();
-                usuarioActual = *un;
+                usuarioActual = un;
+                cout<<endl<<"Cuenta registrada correctamente, bienvenido a SocialTube "<<usuarioActual->apodo;
+                cout<<endl<<endl<<"Pulse cualquier tecla para acceder a su cuenta";
+                getch();
                 sesionPrincipal();
             }
             else{
