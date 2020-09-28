@@ -1,6 +1,7 @@
  #pragma once
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include "usuario.hpp"
 #include "tweet.hpp"
@@ -37,7 +38,7 @@ class red{
             }
         }
         if(usuarioActual.apodo == "null"){
-            cout<<endl<<"Usuario o contrasena inocorrecto";
+            cout<<endl<<"Usuario o contrasena inocorrecto"<<endl;
         }else{
             cout<<endl<<"Sesion iniciada, bienvenido "<<usuarioActual.apodo;
             sesionPrincipal();//El usuario entra a la red social
@@ -68,6 +69,9 @@ class red{
                 break;
             case 3:
                 verMisPublicaciones();
+                break;
+            case 4:
+                statusOn = false;
                 break;
             default:
                 break;
@@ -185,4 +189,36 @@ class red{
         }
 
     } */
+
+    void registro(){
+        string user, contra, correo, rcontra;
+        ofstream archivo("cuentas.txt", std::ios_base::app);
+
+        system("cls");
+            cout << "Registrarse" << endl;
+            cout << "===========" << endl;
+            cout << "Usuario: ";
+            cin >> user;
+            cout << "Correo: ";
+            cin >> correo;
+            cout << "Contraseña: ";
+            cin >> contra;
+            cout << "Repetir Contraseña: ";
+            cin >> rcontra;
+
+            if (contra == rcontra) {
+                usuario* un = new usuario(user, contra, correo); //crea objeto usuario con los datos escritos
+
+                listaUsuarios.InsertarNodoFin(un); //inserta el objeto usuario en la lista de cuentas
+                archivo << "\n" << user << "," << correo << ";" << contra;
+                cout<<endl<<"Cuenta registrado correctamente, bienvenido a SocialTube"<<usuarioActual.apodo;
+                archivo.close();
+                usuarioActual = *un;
+                sesionPrincipal();
+            }
+            else{
+                cout<<endl<<"Fallo al registrar cuenta, las contrase"<<(char)164<<"as no coinciden";
+            }
+        
+    }
 };

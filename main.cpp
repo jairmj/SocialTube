@@ -34,6 +34,9 @@ while(1){
     case 0:
         socialTube.ingresar();
         break;
+    case 1:
+        socialTube.registro();
+        break;
     case 2:
         return 0;
     default:
